@@ -1,0 +1,166 @@
+/* Contact.css */
+.contact { background: var(--bg2); }
+
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+
+/* ── Info column ── */
+.contact-info {
+  display: flex; flex-direction: column; gap: 16px; margin-top: 40px;
+}
+
+.cinfo-item { display: flex; gap: 14px; align-items: flex-start; }
+
+.cinfo-icon {
+  width: 42px; height: 42px;
+  border: 1px solid var(--border); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent); flex-shrink: 0; font-size: 15px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.cinfo-item:hover .cinfo-icon { border-color: var(--accent); background: var(--glow); }
+
+.cinfo-lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.cinfo-val { font-size: 14px; color: var(--text); }
+.cinfo-val a { color: var(--text); text-decoration: none; transition: color 0.2s; }
+.cinfo-val a:hover { color: var(--accent); }
+
+/* ── Form ── */
+.form-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px; letter-spacing: 0.06em;
+  margin-bottom: 28px; color: var(--muted);
+}
+
+.contact-form { display: flex; flex-direction: column; gap: 18px; }
+
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.f-group { display: flex; flex-direction: column; }
+
+.f-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--muted); margin-bottom: 6px;
+}
+
+.f-input, .f-select, .f-textarea {
+  width: 100%;
+  background: var(--bg); border: 1px solid var(--border);
+  color: var(--text); padding: 13px 16px; border-radius: 10px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, background 0.45s;
+  -webkit-appearance: none;
+}
+.f-input:focus, .f-select:focus, .f-textarea:focus { border-color: var(--accent); }
+.f-textarea { min-height: 110px; resize: vertical; }
+
+.btn-submit {
+  background: var(--accent); color: #111;
+  border: none; padding: 14px 36px; border-radius: 40px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; cursor: pointer; align-self: flex-start;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-submit:hover { opacity: 0.85; transform: translateY(-2px); }
+
+@media (max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .f-row { grid-template-columns: 1fr; }
+}
+
+/* ── Button states ── */
+.btn-submit--sending {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+.btn-submit--sent {
+  background: #2d5a00;
+  color: var(--accent);
+}
+.btn-submit--error {
+  background: #5a0000;
+  color: #ff6b6b;
+}
+/* Lift the subject f-group above the textarea group below it */
+.f-group:has(.dd-wrap) {
+  position: relative;
+  z-index: 10;
+}
+
+/* Panel itself sits above everything */
+.dd-panel {
+  z-index: 9999;
+}
+/* ── Dropdown light-mode visibility fix ───────────────────────────────────
+   Add these rules to the bottom of Contact.css
+──────────────────────────────────────────────────────────────────────────── */
+
+/* Trigger uses the same vars as your other form inputs */
+.dd-trigger {
+  background: var(--bg) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}
+.dd-trigger:hover {
+  border-color: var(--accent) !important;
+}
+.dd-trigger.dd-open {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px var(--glow), 0 0 20px var(--glow) !important;
+  background: var(--bg) !important;
+}
+
+/* Trigger icon box */
+.dd-trigger-icon {
+  background: var(--bg2) !important;
+  border-color: var(--border) !important;
+}
+
+/* Placeholder text */
+.dd-trigger-text.dd-placeholder {
+  color: var(--muted) !important;
+}
+
+/* Chevron */
+.dd-chevron {
+  color: var(--muted) !important;
+}
+.dd-trigger.dd-open .dd-chevron {
+  color: var(--accent) !important;
+}
+
+/* Panel matches your form's surface color */
+.dd-panel {
+  background: var(--bg) !important;
+  border-color: var(--border) !important;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12), 0 0 0 1px var(--border) !important;
+  z-index: 9999;
+}
+
+/* Option rows */
+.dd-option:hover {
+  background: var(--bg2) !important;
+  border-color: var(--border) !important;
+}
+.dd-opt-label {
+  color: var(--text) !important;
+}
+.dd-opt-icon {
+  background: var(--bg2) !important;
+  border-color: var(--border) !important;
+}
+
+/* Divider */
+.dd-divider {
+  background: var(--border) !important;
+}
+
+/* Lift subject group above textarea */
+.f-group:has(.dd-wrap) {
+  position: relative;
+  z-index: 10;
+}

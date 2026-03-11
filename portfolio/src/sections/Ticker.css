@@ -1,0 +1,25 @@
+/* Ticker.css */
+.ticker {
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  background: var(--bg2);
+}
+
+.ticker-track {
+  display: flex; gap: 48px;
+  white-space: nowrap;
+  animation: roll 22s linear infinite;
+}
+
+.ticker-item {
+  display: flex; align-items: center; gap: 18px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px; letter-spacing: 0.12em;
+  color: var(--muted); flex-shrink: 0;
+  transition: color 0.2s;
+}
+.ticker-item:hover { color: var(--text); }
+
+.ticker-dot { color: var(--accent); font-size: 13px; }

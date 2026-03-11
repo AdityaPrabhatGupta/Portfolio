@@ -1,0 +1,46 @@
+/* Cursor.css */
+
+/* ── Dark mode (default) — accent lime dot + ring ── */
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed; pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: background 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1.5px solid rgba(200,255,0,0.5);
+  border-radius: 50%;
+  position: fixed; pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s, height 0.25s, border-color 0.3s;
+}
+
+/* ── Light mode — dark dot + dark ring (clearly visible) ── */
+[data-theme="light"] .cursor-dot {
+  background: #111111;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.15);
+}
+
+[data-theme="light"] .cursor-ring {
+  border-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Expand ring on interactive elements */
+body:has(a:hover) .cursor-ring,
+body:has(button:hover) .cursor-ring {
+  width: 52px; height: 52px;
+}
+
+[data-theme="light"] body:has(a:hover) .cursor-ring,
+[data-theme="light"] body:has(button:hover) .cursor-ring {
+  border-color: rgba(0,0,0,0.7);
+}
+
+@media (max-width: 900px) {
+  .cursor-dot, .cursor-ring { display: none; }
+}

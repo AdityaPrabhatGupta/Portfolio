@@ -1,0 +1,34 @@
+/* Footer.css */
+.footer {
+  padding: 36px 80px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  transition: background 0.45s;
+}
+
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px; letter-spacing: 0.1em;
+}
+
+.footer-copy { font-size: 12px; color: var(--muted); }
+
+.footer-socials { display: flex; gap: 10px; }
+
+.social-icon {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); text-decoration: none; font-size: 13px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.social-icon:hover { border-color: var(--accent); color: var(--accent); }
+
+@media (max-width: 900px) {
+  .footer {
+    padding: 36px 24px;
+    flex-direction: column; gap: 16px; text-align: center;
+  }
+}

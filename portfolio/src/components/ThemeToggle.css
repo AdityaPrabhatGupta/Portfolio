@@ -1,0 +1,39 @@
+/* ThemeToggle.css */
+.theme-wrap {
+  position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+  z-index: 200;
+}
+
+.theme-toggle {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--nav-bg); border: 1px solid var(--border);
+  border-radius: 40px; padding: 10px 20px;
+  backdrop-filter: blur(12px);
+  cursor: pointer; user-select: none;
+  font-size: 12px; color: var(--muted);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.22);
+  transition: background 0.4s, box-shadow 0.2s;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.theme-toggle:hover { box-shadow: 0 4px 24px var(--glow); }
+
+.toggle-track {
+  width: 44px; height: 24px;
+  background: var(--surface);
+  border-radius: 12px; position: relative;
+  border: 1px solid var(--border);
+  transition: background 0.3s;
+}
+[data-theme="dark"] .toggle-track { background: var(--accent); }
+
+.toggle-thumb {
+  width: 18px; height: 18px;
+  background: var(--bg);
+  border-radius: 50%; position: absolute;
+  top: 2px; left: 2px;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+[data-theme="dark"] .toggle-thumb {
+  transform: translateX(20px);
+  background: #141414;
+}
