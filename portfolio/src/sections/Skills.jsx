@@ -1,8 +1,6 @@
-// ═══════════════════════════════════════════════════════
 // Skills.jsx
 // Purpose : 3-column grid of skill category cards.
 // Edit    : skills array in src/data/content.js
-// ═══════════════════════════════════════════════════════
 import { skills } from '../data/content';
 import './Skills.css';
 

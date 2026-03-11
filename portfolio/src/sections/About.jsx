@@ -1,9 +1,7 @@
-// ═══════════════════════════════════════════════════════
 // About.jsx
 // Purpose : Two-column about section with bio, animated
 //           stat counters, social links, and education card.
 // Edit    : about and personal objects in src/data/content.js
-// ═══════════════════════════════════════════════════════
 import { about, personal } from '../data/content';
 import useCounter from '../hooks/useCounter';
 import './About.css';

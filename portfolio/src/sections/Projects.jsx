@@ -1,9 +1,7 @@
-// ═══════════════════════════════════════════════════════
 // Projects.jsx
 // Purpose : Featured projects grid. First project spans
 //           full width. Others are 2-column cards.
 // Edit    : projects array in src/data/content.js
-// ═══════════════════════════════════════════════════════
 import { useState } from 'react';
 import { projects, personal } from '../data/content';
 import './Projects.css';

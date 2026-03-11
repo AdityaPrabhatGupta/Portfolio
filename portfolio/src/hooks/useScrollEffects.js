@@ -1,4 +1,3 @@
-// ═══════════════════════════════════════════════════════
 // useScrollEffects.js
 // Purpose : Scroll-driven side effects:
 //           • Hero parallax (title + right column)
@@ -6,8 +5,7 @@
 //           • Nav box-shadow elevation
 //           • Active nav-link highlight
 //           • Ticker animation speed acceleration
-// Usage   : Call once in App.jsx — no arguments needed.
-// ═══════════════════════════════════════════════════════
+
 import { useEffect } from 'react';
 
 export default function useScrollEffects() {

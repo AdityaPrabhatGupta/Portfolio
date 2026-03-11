@@ -1,10 +1,7 @@
-// ═══════════════════════════════════════════════════════
 // useReveal.js
 // Purpose : Adds scroll-triggered reveal classes to
 //           matched DOM elements using IntersectionObserver.
 //           Runs after first render; cleans up observer on unmount.
-// Usage   : Call once in App.jsx — no arguments needed.
-// ═══════════════════════════════════════════════════════
 import { useEffect } from 'react';
 
 // [ CSS selector, animation class to add ]

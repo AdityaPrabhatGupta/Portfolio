@@ -1,9 +1,7 @@
-// ═══════════════════════════════════════════════════════
 // Hero.jsx
 // Purpose : Full-viewport hero — title, tagline, CTA buttons,
 //           profile frame with hover animation.
 // Edit    : All text content in src/data/content.js
-// ═══════════════════════════════════════════════════════
 import { personal, heroTags } from '../data/content';
 import './Hero.css';
 

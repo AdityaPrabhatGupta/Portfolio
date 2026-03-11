@@ -1,10 +1,7 @@
-// ═══════════════════════════════════════════════════════
 // useCursor.js
 // Purpose : Drives the custom dot + lagging-ring cursor.
 //           Attaches mousemove listener, runs RAF loop
 //           for the ring, cleans up on unmount.
-// Usage   : Call once in App.jsx — no arguments needed.
-// ═══════════════════════════════════════════════════════
 import { useEffect } from 'react';
 
 export default function useCursor() {

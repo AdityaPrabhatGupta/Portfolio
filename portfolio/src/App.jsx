@@ -1,4 +1,3 @@
-// ═══════════════════════════════════════════════════════
 // App.jsx  —  Root component
 //
 // Responsibility:
@@ -9,7 +8,6 @@
 // To add a new section:
 //   1. Create it in src/sections/
 //   2. Import and drop it inside <main> below
-// ═══════════════════════════════════════════════════════
 
 import './styles/globals.css';
 

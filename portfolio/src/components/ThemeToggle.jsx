@@ -1,8 +1,6 @@
-// ═══════════════════════════════════════════════════════
 // ThemeToggle.jsx
 // Purpose : Fixed bottom-centre dark / light toggle pill.
 // Props   : theme ('dark' | 'light'), onToggle (fn)
-// ═══════════════════════════════════════════════════════
 import './ThemeToggle.css';
 
 export default function ThemeToggle({ theme, onToggle }) {

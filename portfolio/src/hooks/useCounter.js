@@ -1,11 +1,7 @@
-// ═══════════════════════════════════════════════════════
 // useCounter.js
 // Purpose : Animates a number from 0 → target with an
 //           ease-out cubic curve when element enters viewport.
-// Usage   :
-//   const { ref, display } = useCounter(95, '%');
-//   return <div ref={ref}>{display}</div>;
-// ═══════════════════════════════════════════════════════
+
 import { useRef, useState, useEffect } from 'react';
 
 export default function useCounter(target, suffix = '', duration = 1400) {

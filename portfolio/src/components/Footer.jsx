@@ -1,7 +1,5 @@
-// ═══════════════════════════════════════════════════════
 // Footer.jsx
 // Purpose : Site footer — logo, copyright, social icons.
-// ═══════════════════════════════════════════════════════
 import { personal } from '../data/content';
 import './Footer.css';
 

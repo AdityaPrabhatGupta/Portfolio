@@ -1,8 +1,7 @@
-// ╔══════════════════════════════════════════════════════════╗
-// ║  content.js  —  SINGLE SOURCE OF TRUTH                  ║
-// ║  Edit this file to update anything on the portfolio.    ║
-// ║  No other file needs to be touched for content changes. ║
-// ╚══════════════════════════════════════════════════════════╝
+
+//   content.js  —  SINGLE SOURCE OF TRUTH                  
+//   Edit this file to update anything on the portfolio.    
+//   No other file needs to be touched for content changes. 
 
 export const personal = {
   name:       'Aditya Prabhat Gupta',
@@ -15,8 +14,8 @@ export const personal = {
   phone:      '+91-9695535380',
   linkedin:   'https://www.linkedin.com/in/aditya-prabhat-gupta-45a2102aa/',
   github:     'https://github.com/AdityaPrabhatGupta',
-  resume:     '/Resume.pdf',                       // ← replace with actual resume URL
-  profileImg: '/Aditya.jpeg',                      // ← replace with actual image path/URL
+  resume:     '/Resume.pdf',                       
+  profileImg: '/Aditya.jpeg',                      
   heroBadge:  { value: '3rd', label: 'Hackathon' },
   heroChip:   'B.Tech CSE (AI & ML)',
 };
@@ -100,7 +99,7 @@ export const projects = [
     linkLabel:'View on GitHub',
     gradient: 'linear-gradient(135deg,#0d1117 0%,#1a2233 100%)',
     glyph:    'PM',
-    image:    '/projects/pm-tool.png',             // ← replace with actual screenshot path/URL
+    image:    '/projects/pm-tool.png',            
   },
   {
     id:       'recipex',
@@ -114,7 +113,7 @@ export const projects = [
     linkLabel:'View Live Site',
     gradient: 'linear-gradient(135deg,#0f1a0f 0%,#1e2a1e 100%)',
     glyph:    'RX',
-    image:    '/recipex.png',             // ← replace with actual screenshot path/URL
+    image:    '/recipex.png',             
   },
   {
     id:       'chatbot',
@@ -128,7 +127,7 @@ export const projects = [
     linkLabel: null,
     gradient: 'linear-gradient(135deg,#110a1a 0%,#1a1a2e 100%)',
     glyph:    'AI',
-    image:    '/projects/chatbot.png',             // ← replace with actual screenshot path/URL
+    image:    '/projects/chatbot.png',             
   },
   {
   id:        'voice-calc',
@@ -185,51 +184,41 @@ export const certifications = [
 ];
 
 // ── contactSubjects ────────────────────────────────────────────────────────
-// Upgraded from plain strings to rich objects.
-// Each entry drives the advanced animated SubjectSelector in the Contact form.
-//
-// Fields:
-//   id    — unique key used internally
-//   label — the plain text value submitted with the form / sent in the email
-//   icon  — emoji shown on the card
-//   color — accent color for glow, bar, checkmark, and glitch effect
-//   sub   — small tagline shown beneath the label on the card
-//
-// To add a new subject just add another object following the same shape.
+
 export const contactSubjects = [
   {
     id:    'internship',
     label: 'Internship Opportunity',
     icon:  '🚀',
-    color: '#bcd631',               // portfolio yellow-green
+    color: '#bcd631',              
     sub:   "Let's grow together",
   },
   {
     id:    'freelance',
     label: 'Freelance Project',
     icon:  '💼',
-    color: '#4fc3f7',               // sky blue
+    color: '#4fc3f7',               
     sub:   'Build something great',
   },
   {
     id:    'fulltime',
     label: 'Full-time Role',
     icon:  '🏢',
-    color: '#ce93d8',               // soft purple
+    color: '#ce93d8',               
     sub:   'Long-term commitment',
   },
   {
     id:    'collab',
     label: 'Collaboration',
     icon:  '🤝',
-    color: '#80cbc4',               // teal
+    color: '#80cbc4',               
     sub:   'Two minds, one vision',
   },
   {
     id:    'other',
     label: 'Other',
     icon:  '✦',
-    color: '#ffcc80',               // warm amber
+    color: '#ffcc80',               
     sub:   'Tell me everything',
   },
 ];

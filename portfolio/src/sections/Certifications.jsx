@@ -1,8 +1,6 @@
-// ═══════════════════════════════════════════════════════
 // Certifications.jsx
 // Purpose : 3-column grid of certifications and awards.
 // Edit    : certifications array in src/data/content.js
-// ═══════════════════════════════════════════════════════
 import { certifications } from '../data/content';
 import './Certifications.css';
 

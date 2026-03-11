@@ -1,10 +1,8 @@
-// ═══════════════════════════════════════════════════════
 // Navbar.jsx
 // Purpose : Fixed floating pill navigation bar.
 //           Collapses to avatar + status chip on scroll down,
 //           expands back to full nav on scroll up.
 //           Avatar shows profile photo if set in content.js
-// ═══════════════════════════════════════════════════════
 import { useState, useEffect, useRef } from 'react';
 import { personal } from '../data/content';
 import './Navbar.css';

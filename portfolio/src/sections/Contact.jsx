@@ -1,6 +1,4 @@
-// ═══════════════════════════════════════════════════════
 // Contact.jsx
-// ═══════════════════════════════════════════════════════
 import { useState, useRef, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import { personal, contactSubjects } from '../data/content';
@@ -21,9 +19,7 @@ const CONTACT_INFO = [
 
 const EMPTY = { name: '', email: '', subject: '', message: '' };
 
-// ══════════════════════════════════════════════════════
 // SubjectDropdown — sleek dark dropdown with glow
-// ══════════════════════════════════════════════════════
 function SubjectDropdown({ value, onChange }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
