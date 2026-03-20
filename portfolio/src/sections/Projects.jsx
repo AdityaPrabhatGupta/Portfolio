@@ -43,13 +43,14 @@ function ProjectCard({ proj }) {
             src={proj.image}
             alt={proj.name}
             className="proj-img"
+            loading="lazy"
+            decoding="async"
             onError={() => setImgFailed(true)}
           />
         ) : (
           <span className="proj-glyph">{proj.glyph}</span>
         )}
 
-        {/* Tag pill overlaid on banner */}
         <span className="proj-tag-pill">{proj.tag}</span>
       </div>
 

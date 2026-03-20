@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 // [ CSS selector, animation class to add ]
 const REVEAL_MAP = [
-  ['.skill-card',  'reveal'],
+  ['.acc-item',    'reveal'],   // Skills accordion rows
   ['.proj-card',   'reveal-scale'],
   ['.cert-card',   'reveal'],
   ['.exp-item',    'reveal'],

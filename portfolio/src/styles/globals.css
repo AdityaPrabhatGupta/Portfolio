@@ -65,7 +65,18 @@ body::before {
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 
 /* ─── SECTION PADDING ─── */
-section { padding: 120px 80px; }
+section {
+  padding: 120px 80px;
+  /* Skip rendering off-screen sections entirely — huge perf win */
+  content-visibility: auto;
+  contain-intrinsic-size: 0 800px; /* estimated height hint */
+}
+
+/* Projects section is sticky — content-visibility breaks sticky, so reset */
+.projects {
+  content-visibility: visible;
+  contain-intrinsic-size: unset;
+}
 
 /* ─── SHARED SECTION LABELS / TITLES ─── */
 .s-label {
