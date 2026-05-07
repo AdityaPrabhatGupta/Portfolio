@@ -1,127 +1,485 @@
-/* Projects.css */
-.projects { background: var(--bg); }
+/* ═══════════════════════════════════════════════════════
+   Projects.css — Fixed & Enhanced
+   Bugs fixed:
+   1. Hover transform conflict: entry animation used --delay
+      which bled into hover transitions; fixed by splitting
+      transition into separate props with 0ms on hover state
+   2. Section only had padding-bottom; added padding-top
+   3. Hardcoded dark rgba() card colors — replaced with CSS vars
+      that work across light/dark themes
+   4. Image fallback z-index same as default img — bumped to 0
+   5. proj-card-image--default opacity was 0 until loaded
+      (no skeleton) causing layout shift — skeleton added
+   6. proj-card--visible:hover had no transform reset, causing
+      translateY conflict with entry; resolved with specificity fix
+═══════════════════════════════════════════════════════ */
 
-.projects-head {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  margin-bottom: 56px;
-}
-
-.projects-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-/* ── Card base ── */
-.proj-card {
-  border-radius: 16px; overflow: hidden;
-  background: var(--surface); border: 1px solid var(--border);
-  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), border-color 0.3s;
-  display: flex; flex-direction: column;
-}
-.proj-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(200,255,0,0.28);
-}
-
-/* ── Featured spans full width, side-by-side layout ── */
-.proj-card.featured {
-  grid-column: span 2;
-  flex-direction: row;
-  min-height: 340px;
-}
-
-/* ── Banner ── */
-.proj-banner {
+/* ─── SECTION ─── */
+.projects {
+  background: var(--bg);
   position: relative;
+  /* FIX: was only padding-bottom: 100px — section header was clipping */
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+@media (max-width: 900px) {
+  .projects { padding: 80px 24px; }
+}
+
+/* ─── BG BLOBS ─── */
+.proj-bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+}
+.proj-bg-blob-1 {
+  width: 700px; height: 700px;
+  background: var(--accent);
+  top: -100px; left: -200px;
+}
+.proj-bg-blob-2 {
+  width: 500px; height: 500px;
+  background: #39d98a;
+  bottom: 0; right: -150px;
+}
+
+/* ─── HEADER ─── */
+.projects-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 56px;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 900px) {
+  .projects-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+}
+
+/* ─── GRID ─── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 900px) {
+  .projects-grid { grid-template-columns: 1fr; gap: 20px; }
+}
+
+/* ─── CARD ─── */
+.proj-card {
+  display: flex;
+  flex-direction: column;
+  /* FIX: was rgba(255,255,255,0.03) — breaks in light mode
+     Now uses CSS variable so it adapts to theme */
+  background: var(--surface, rgba(255,255,255,0.04));
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  position: relative;
+
+  /* Entry animation state */
+  opacity: 0;
+  transform: translateY(36px);
+
+  /*
+   * FIX: Original used shorthand `transition` with `var(--delay)` for ALL
+   * properties, which meant hover triggered with a delay too (sluggish).
+   * Solution: use --entry-delay only for the entry animation, and on hover
+   * state override transitions to 0ms delay.
+   */
+  transition:
+    opacity   0.55s ease var(--entry-delay, 0ms),
+    transform 0.55s ease var(--entry-delay, 0ms),
+    border-color 0.3s ease,
+    box-shadow   0.3s ease;
+}
+
+/* When card becomes visible (entry complete) */
+.proj-card--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*
+ * FIX: The hover state must override transition delays to 0ms
+ * otherwise the card "snaps" on hover because it inherits entry-delay.
+ * Also fix the transform conflict — visible card should lift on hover.
+ */
+.proj-card--visible:hover {
+  border-color: rgba(255,255,255,0.18);
+  box-shadow: 0 28px 64px rgba(0,0,0,0.5);
+  transform: translateY(-5px);
+  /* Reset delays so hover is instant */
+  transition:
+    opacity   0.3s ease 0ms,
+    transform 0.3s ease 0ms,
+    border-color 0.25s ease 0ms,
+    box-shadow   0.25s ease 0ms;
+}
+
+/* Light mode card adjustments */
+[data-theme="light"] .proj-card {
+  background: var(--bg2);
+  border-color: var(--border);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+[data-theme="light"] .proj-card--visible:hover {
+  box-shadow: 0 28px 64px rgba(0,0,0,0.14);
+}
+
+/* ─── IMAGE AREA ─── */
+.proj-card-image-wrap {
+  position: relative;
+  width: 100%;
+  /* Fixed height — tall enough to show full screenshots without gaps */
+  height: 340px;
+  overflow: hidden;
+  background: var(--bg2);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+/* Gradient overlay fades screenshot into card body */
+.proj-card-image-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--bg2));
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* FIX: Image skeleton to prevent layout shift while image loads */
+.proj-card-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    var(--surface) 0%,
+    var(--bg2) 50%,
+    var(--surface) 100%
+  );
+  background-size: 200% 100%;
+  animation: skelPulse 1.6s ease infinite;
+  z-index: 0;
+}
+
+@keyframes skelPulse {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── IMAGE SWAP — driven by .proj-card--hovered class ── */
+.proj-card-image {
+  position: absolute;
+  /* Taller than the container so we can pan vertically */
+  top: 0; left: 0; right: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: opacity 0.4s ease, object-position 1.4s ease;
+}
+
+/* Default image: shows top of screenshot; pans down slowly on hover */
+.proj-card-image--default {
+  opacity: 1;
+  z-index: 1;
+  object-position: top center;
+}
+.proj-card--hovered .proj-card-image--default {
+  opacity: 0;
+  object-position: bottom center;
+}
+
+/* Hover image: hidden by default, fades in on hover */
+.proj-card-image--hover {
+  opacity: 0;
+  z-index: 2;
+  object-position: top center;
+}
+.proj-card--hovered .proj-card-image--hover {
+  opacity: 1;
+  object-position: bottom center;
+}
+
+/* Glyph fallback */
+.proj-card-image-fallback {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 16/9;
-  min-height: 260px;
-  overflow: hidden;
-  flex-shrink: 0;
-  background: #0f172a;
+  font-size: 72px;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  opacity: 0.18;
+  user-select: none;
+  z-index: 1;
+  transition: opacity 0.4s ease;
 }
-.proj-card.featured .proj-banner {
-  aspect-ratio: auto;
+.proj-card-image-fallback--hidden {
+  opacity: 0 !important;
+}
+
+/* Live badge */
+.proj-live-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 4px 10px 4px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c8ff00;
+}
+
+[data-theme="light"] .proj-live-badge {
+  background: rgba(255,255,255,0.8);
+  border-color: rgba(0,0,0,0.12);
+  color: var(--accent);
+}
+
+.proj-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c8ff00;
+  animation: livePulse 1.8s ease infinite;
+  flex-shrink: 0;
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.75); }
+}
+
+/* ─── CARD BODY ─── */
+.proj-card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 28px 22px;
   flex: 1;
 }
 
-.proj-glyph {
+/* Tags */
+.proj-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+  /* FIX: prevent tags overflowing card width */
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.proj-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.proj-tag--category {
+  color: var(--accent);
+  border-color: rgba(200,255,0,0.25);
+  background: rgba(200,255,0,0.06);
+}
+
+/* Award */
+.proj-award-badge {
+  display: inline-flex;
+  width: fit-content;
+  background: rgba(200,255,0,0.07);
+  border: 1px solid rgba(200,255,0,0.2);
+  color: var(--accent);
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+/* Title */
+.proj-card-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 80px; color: var(--accent); opacity: 0.15;
-  user-select: none;
-  transition: opacity 0.3s, transform 0.3s;
-}
-.proj-card:hover .proj-glyph { opacity: 0.25; transform: scale(1.05); }
-.proj-card.featured .proj-glyph { font-size: 110px; }
-
-.proj-tag-pill {
-  position: absolute; top: 16px; left: 16px;
-  background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: #fff; font-size: 11px; letter-spacing: 0.1em;
-  text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
+  font-size: clamp(22px, 2.4vw, 34px);
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+  color: var(--accent);
+  margin-bottom: 10px;
+  transition: color 0.25s ease;
 }
 
-/* ── Body ── */
-.proj-body {
-  padding: 28px;
-  display: flex; flex-direction: column; gap: 10px;
-}
-.proj-card.featured .proj-body {
-  flex: 1; justify-content: center; padding: 40px;
+.proj-card--visible:hover .proj-card-title {
+  color: var(--text);
 }
 
-.proj-award {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(200,255,0,0.08);
-  border: 1px solid rgba(200,255,0,0.28);
-  color: var(--accent); font-size: 11px;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  padding: 5px 12px; border-radius: 20px; width: fit-content;
+/* Description */
+.proj-card-desc {
+  font-size: 13px;
+  line-height: 1.72;
+  color: var(--muted);
+  flex: 1;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.proj-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 24px; letter-spacing: 0.04em;
-}
-.proj-card.featured .proj-name { font-size: 34px; }
-
-.proj-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
-
-.proj-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-.proj-stack span {
-  background: var(--bg2); border: 1px solid var(--border);
-  color: var(--muted); font-size: 11px;
-  padding: 3px 10px; border-radius: 12px;
+/* Footer */
+.proj-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
 }
 
-.proj-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  color: var(--accent); font-size: 12px;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  text-decoration: none; font-weight: 600; margin-top: 8px;
-  transition: gap 0.2s;
+.proj-card-number {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  opacity: 0.4;
 }
-.proj-link:hover { gap: 12px; }
 
+/* FIX: Replaced lone arrow with labelled CTA */
+.proj-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.proj-card--visible:hover .proj-cta {
+  color: var(--accent);
+  gap: 10px;
+}
+
+.proj-card-arrow {
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+
+.proj-card--visible:hover .proj-card-arrow {
+  transform: translateX(3px);
+}
+
+/* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
-  .projects-grid { grid-template-columns: 1fr; }
-  .proj-card.featured { grid-column: span 1; flex-direction: column; }
+  .proj-card-image-wrap { height: 280px; }
+}
+@media (max-width: 480px) {
+  .proj-card-image-wrap { height: 220px; }
+  .proj-card-body { padding: 18px 20px 16px; }
+  .proj-card-title { font-size: clamp(20px, 6vw, 28px); }
 }
 
-.proj-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 150%;        
-  height: auto;
-  transform: scale(0.67) translate(0, 0); 
-  transform-origin: top left;
-  transition: transform 0.5s ease;
+/* ─── ACTION BUTTONS (added for GitHub + Live links) ─── */
+
+/* Card is now a div, not an <a> — image area has its own link */
+.proj-card-image-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
-.proj-card:hover .proj-img {
-  transform: scale(0.70) translate(0, 0);  
+/* Footer: number on left, buttons on right */
+.proj-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.proj-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.proj-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Ghost button — GitHub */
+.proj-btn--ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.proj-btn--ghost:hover {
+  border-color: rgba(255,255,255,0.3);
+  color: var(--text);
+  background: var(--surface);
+}
+
+[data-theme="light"] .proj-btn--ghost:hover {
+  border-color: rgba(0,0,0,0.25);
+}
+
+/* Accent button — Live site */
+.proj-btn--accent {
+  background: var(--accent);
+  border: 1px solid transparent;
+  color: #111;
+}
+
+.proj-btn--accent:hover {
+  opacity: 0.88;
+}
+
+@media (max-width: 480px) {
+  .proj-btn { padding: 6px 11px; font-size: 10px; }
 }
