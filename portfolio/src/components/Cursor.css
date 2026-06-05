@@ -32,12 +32,20 @@
 
 /* Expand ring on interactive elements */
 body:has(a:hover) .cursor-ring,
-body:has(button:hover) .cursor-ring {
+body:has(button:hover) .cursor-ring,
+body:has([role="button"]:hover) .cursor-ring,
+body:has(.dd-trigger:hover) .cursor-ring,
+body:has(input:hover) .cursor-ring,
+body:has(textarea:hover) .cursor-ring {
   width: 52px; height: 52px;
 }
 
 [data-theme="light"] body:has(a:hover) .cursor-ring,
-[data-theme="light"] body:has(button:hover) .cursor-ring {
+[data-theme="light"] body:has(button:hover) .cursor-ring,
+[data-theme="light"] body:has([role="button"]:hover) .cursor-ring,
+[data-theme="light"] body:has(.dd-trigger:hover) .cursor-ring,
+[data-theme="light"] body:has(input:hover) .cursor-ring,
+[data-theme="light"] body:has(textarea:hover) .cursor-ring {
   border-color: rgba(0,0,0,0.7);
 }
 

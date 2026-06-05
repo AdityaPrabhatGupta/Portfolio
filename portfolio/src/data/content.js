@@ -44,11 +44,13 @@ export const skills = [
   {
     icon: '⚡',
     name: 'Languages',
+    score: 90,
     tags: ['JavaScript ES6+', 'HTML5', 'CSS3', 'C'],
   },
   {
     icon: '🎨',
     name: 'Frontend',
+    score: 95,
     tags: [
       'React.js',
       'React Router DOM',
@@ -60,6 +62,7 @@ export const skills = [
   {
     icon: '⚙️',
     name: 'Backend',
+    score: 90,
     tags: [
       'Node.js',
       'Express.js',
@@ -72,11 +75,13 @@ export const skills = [
   {
     icon: '🗄️',
     name: 'Databases',
+    score: 85,
     tags: ['MongoDB', 'MySQL', 'CRUD Operations'],
   },
   {
     icon: '🛠️',
     name: 'Tools & Deploy',
+    score: 80,
     tags: ['GitHub', 'VS Code', 'Vercel', 'Render', 'Cloudinary', 'FFmpeg'],
   },
 ];
@@ -120,6 +125,26 @@ export const projects = [
     glyph: 'CX',
     image: '/convox-2.png',
     hoverImage: '/convox-1.png',
+    caseStudy: {
+      architecture: 'MERN Stack + Socket.IO + WebRTC (Mesh Network)',
+      database: 'MongoDB (Mongoose Schemas for users, messages, and calls)',
+      features: [
+        'Peer-to-peer audio/video calls with SDP and ICE gathering.',
+        'Real-time text chat with message receipt events and active statuses.',
+        'Secure authentication via Google OAuth 2.0 and JWT.',
+        'Rich media uploads using Cloudinary cloud storage and Sharp compression.'
+      ],
+      challenges: [
+        {
+          problem: 'High latency and connection failure rates behind firewalls.',
+          solution: 'Configured STUN/TURN servers to enable WebRTC connection path negotiation across symmetric NAT firewalls.'
+        },
+        {
+          problem: 'Real-time message ordering delays under heavy network loads.',
+          solution: 'Designed a message sequence caching mechanism on the Express backend and synchronized Socket.IO streams.'
+        }
+      ]
+    }
   },
 
   {
@@ -135,6 +160,26 @@ export const projects = [
     image: '/PMS.png',
     hoverImage: '/PMS-2.png',
     glyph: 'PM',
+    caseStudy: {
+      architecture: 'MERN Stack with RESTful API endpoints',
+      database: 'MongoDB (Collections for Teams, Notices, and Kanban Cards)',
+      features: [
+        'Dynamic Kanban board with Drag & Drop column transitions.',
+        'Notice board for real-time team broadcasts.',
+        'Role-Based Access Control (RBAC) separating Admin, Manager, and Member roles.',
+        'JWT token authentication stored securely in client cookies.'
+      ],
+      challenges: [
+        {
+          problem: 'Kanban cards state shifting when multiple users dragged in parallel.',
+          solution: 'Optimized Mongoose atomic updates ($set, $push) and decoupled UI transitions from DB synchronization.'
+        },
+        {
+          problem: 'Unauthorized API manipulation bypassing route controls.',
+          solution: 'Implemented strict middleware authorization validation checks on all REST API points.'
+        }
+      ]
+    }
   },
 
   {
@@ -150,6 +195,25 @@ export const projects = [
     image: '/recipex.png',
     hoverImage: '/recipex-2.png',
     glyph: 'RX',
+    caseStudy: {
+      architecture: 'React Client + Third-Party Food Database API',
+      database: 'LocalStorage API (Favorites persistence & cached recipes)',
+      features: [
+        'Ingredient-based search with autocomplete filters.',
+        'Interactive cooking steps and nutritional breakdown cards.',
+        'Custom favorites list with instant offline loading.'
+      ],
+      challenges: [
+        {
+          problem: 'Rapid keystroke searches triggered duplicate API calls, hitting rate limits.',
+          solution: 'Implemented a custom debouncing hook (`useDebounce`) that delayed the query execution by 400ms.'
+        },
+        {
+          problem: 'Slow initial load times when requesting remote recipe data.',
+          solution: 'Built a lightweight client-side memory cache that stored raw responses for 10 minutes.'
+        }
+      ]
+    }
   },
 
   {
@@ -165,23 +229,61 @@ export const projects = [
     image: '/HL.png',
     hoverImage: '/HL-2.png',
     glyph: 'AI',
+    caseStudy: {
+      architecture: 'Python AI Engine + Flask Web API Wrapper',
+      database: 'CSV Data Storage (Loaded on server startup)',
+      features: [
+        'Natural Language Processing (NLP) symptom classification model.',
+        'BMI calculator integrated with customized healthy diet recommendations.',
+        'Structured responses categorizing symptoms into levels of urgency.'
+      ],
+      challenges: [
+        {
+          problem: 'Deep NLP classification model took too long to load in web contexts.',
+          solution: 'Decoupled model compilation from route handling, caching the compiled weights in server memory.'
+        },
+        {
+          problem: 'Misclassification of multiple symptoms typed in a single string.',
+          solution: 'Refactored training patterns to include compound sentences and multi-symptom intent targets.'
+        }
+      ]
+    }
   },
   {
-  id: 'voice-calc',
-  featured: false,
-  tag: 'JavaScript',
-  award: '🏆 Live on Netlify',
-  name: 'Voice-Enabled Calculator',
-  desc: 'Built a responsive calculator with voice command support using Web Speech API, achieving ~95% speech recognition accuracy through custom command parsing.',
-  stack: ['JavaScript', 'Web Speech API', 'HTML5', 'CSS3'],
-  link: 'https://calculator-with-voice-assistance.netlify.app/',
-  linkLabel: 'View Live Site',
-  github: 'https://github.com/AdityaPrabhatGupta/calculator-with-voice-assistance',
-  gradient: 'linear-gradient(135deg,#0a0a16 0%,#1a1a2e 100%)',
-  glyph: '🎙',
-  image: '/calci.png',
-  hoverImage: '/calci.png',
-}
+    id: 'voice-calc',
+    featured: false,
+    tag: 'JavaScript',
+    award: '🏆 Live on Netlify',
+    name: 'Voice-Enabled Calculator',
+    desc: 'Built a responsive calculator with voice command support using Web Speech API, achieving ~95% speech recognition accuracy through custom command parsing.',
+    stack: ['JavaScript', 'Web Speech API', 'HTML5', 'CSS3'],
+    link: 'https://calculator-with-voice-assistance.netlify.app/',
+    linkLabel: 'View Live Site',
+    github: 'https://github.com/AdityaPrabhatGupta/calculator-with-voice-assistance',
+    gradient: 'linear-gradient(135deg,#0a0a16 0%,#1a1a2e 100%)',
+    glyph: '🎙',
+    image: '/calci.png',
+    hoverImage: '/calci.png',
+    caseStudy: {
+      architecture: 'Vanilla JavaScript Web Speech Interface',
+      database: 'No database (State managed locally in memory)',
+      features: [
+        'Real-time voice capture utilizing Web Speech API.',
+        'Regex-driven math expression parser matching vocal inputs.',
+        'Interactive auditory feedback detailing results.'
+      ],
+      challenges: [
+        {
+          problem: 'Speech engine misidentifying operations (e.g., "in" as "*").',
+          solution: 'Built a custom phonetic replacement dictionary mapping operations like "add, plus, sum" to "+".'
+        },
+        {
+          problem: 'Mic activation issues across secure HTTPS contexts.',
+          solution: 'Implemented check-validation logic for browser permissions with helpful user permission popups.'
+        }
+      ]
+    }
+  }
 ];
 
 export const about = {
@@ -209,15 +311,22 @@ export const certifications = [
   },
   {
     icon: '💻',
-    title: 'Full Stack Development',
-    org: 'Self-Taught',
-    desc: 'Proficient in MERN stack, WebRTC, and real-time applications with production deployments.',
+    title: 'Full Stack Development with AI',
+    org: 'Physics Wallah x NSDC x PwC | 2026',
+    desc: 'Comprehensive training in full-stack engineering integrated with artificial intelligence. Verified credentials through pwskills.',
+    link: 'https://pwskills.com/learn/certificate/b0eed40e-81f0-47b3-8e79-f05b4641d761/?isCareerPath=true',
   },
   {
     icon: '🏆',
-    title: '3rd Place Hackathon',
-    org: 'Hackathon Winner',
-    desc: 'Achieved 3rd place in a competitive hackathon, demonstrating innovative problem-solving skills.',
+    title: '3rd Place — VibeCon ’26',
+    org: 'GDGoC RIT Roorkee',
+    desc: 'Secured 3rd place in the AI Creator Showcase. Built "DreamForge AI", an immersive cinematic universe generator using Gemini, Imagen, and Multi-model orchestration.',
+  },
+  {
+    icon: '🥉',
+    title: '2nd Runner-Up — RIT Hackathon 2025',
+    org: 'RIT Roorkee',
+    desc: 'Secured 2nd Runner-Up position. Led a 4-member team to develop an NLP-based AI Medical Assistant Chatbot using TensorFlow.',
   },
 ];
 

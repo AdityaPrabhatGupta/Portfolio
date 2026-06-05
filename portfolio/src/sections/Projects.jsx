@@ -2,6 +2,8 @@ import { useRef, useEffect, useState } from 'react';
 import { projects, personal } from '../data/content';
 import './Projects.css';
 
+import CaseStudyModal from '../components/CaseStudyModal';
+
 function GitHubIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -10,14 +12,13 @@ function GitHubIcon() {
   );
 }
 
-function ProjectCard({ proj, index }) {
+function ProjectCard({ proj, index, onOpenCaseStudy }) {
   const cardRef = useRef(null);
   const [visible, setVisible]   = useState(false);
   const [hovered, setHovered]   = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
 
   // Pre-load hover image as soon as component mounts
-  // so it's ready in cache when the user hovers
   useEffect(() => {
     if (!proj.hoverImage) return;
     const img = new Image();
@@ -42,7 +43,6 @@ function ProjectCard({ proj, index }) {
 
   const liveHref   = proj.link   || null;
   const githubHref = proj.github || personal.github;
-  const cardHref   = liveHref    || githubHref;
 
   const hasDefault = Boolean(proj.image);
   const hasHover   = Boolean(proj.hoverImage);
@@ -54,15 +54,14 @@ function ProjectCard({ proj, index }) {
       style={{ '--entry-delay': `${index * 80}ms` }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={() => onOpenCaseStudy(proj)}
     >
       {/* ── IMAGE AREA ── */}
-      <a
-        href={cardHref}
-        target="_blank"
-        rel="noreferrer"
+      <div
         className="proj-card-image-link"
-        tabIndex="-1"
-        aria-hidden="true"
+        role="button"
+        tabIndex={0}
+        aria-label={`View case study for ${proj.name}`}
       >
         <div className="proj-card-image-wrap">
 
@@ -112,7 +111,7 @@ function ProjectCard({ proj, index }) {
             </div>
           )}
         </div>
-      </a>
+      </div>
 
       {/* ── CARD BODY ── */}
       <div className="proj-card-body">
@@ -170,6 +169,8 @@ function ProjectCard({ proj, index }) {
 }
 
 export default function Projects() {
+  const [activeCaseStudy, setActiveCaseStudy] = useState(null);
+
   return (
     <section className="projects" id="projects">
       <div className="proj-bg-blob proj-bg-blob-1" aria-hidden="true" />
@@ -187,9 +188,21 @@ export default function Projects() {
 
       <div className="projects-grid">
         {projects.map((proj, i) => (
-          <ProjectCard key={proj.id} proj={proj} index={i} />
+          <ProjectCard
+            key={proj.id}
+            proj={proj}
+            index={i}
+            onOpenCaseStudy={setActiveCaseStudy}
+          />
         ))}
       </div>
+
+      {activeCaseStudy && (
+        <CaseStudyModal
+          project={activeCaseStudy}
+          onClose={() => setActiveCaseStudy(null)}
+        />
+      )}
     </section>
   );
 }

@@ -8,27 +8,48 @@ import { personal } from '../data/content';
 import './Navbar.css';
 
 const NAV_LINKS = [
-  { href: '#home',     label: 'Home'     },
-  { href: '#skills',   label: 'Skills'   },
-  { href: '#projects', label: 'Projects' },
-  { href: '#about',    label: 'About'    },
-  { href: '#certs',    label: 'Awards'   },
+  { href: '#home',       label: 'Home'       },
+  { href: '#skills',     label: 'Skills'     },
+  { href: '#experience', label: 'Experience' },
+  { href: '#projects',   label: 'Projects'   },
+  { href: '#about',      label: 'About'      },
+  { href: '#certs',      label: 'Awards'     },
 ];
 
 const COLLAPSE_THRESHOLD = 80;
 
 export default function Navbar() {
   const [collapsed, setCollapsed] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const lastScrollY = useRef(0);
 
   useEffect(() => {
     const onScroll = () => {
       const current = window.scrollY;
+
+      // ── Navbar Collapse ──
       if (current > COLLAPSE_THRESHOLD && current > lastScrollY.current) setCollapsed(true);
       if (current < lastScrollY.current) setCollapsed(false);
       lastScrollY.current = current;
+
+      // ── Active Section Highlight ──
+      const sections = ['home', 'skills', 'experience', 'projects', 'about', 'certs'];
+      let active = 'home';
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.offsetTop - 160;
+          if (current >= top) {
+            active = id;
+          }
+        }
+      }
+      setActiveSection(active);
     };
+
     window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // Run immediately on mount
+
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -51,11 +72,15 @@ export default function Navbar() {
 
       {/* Links */}
       <ul className="nav-links">
-        {NAV_LINKS.map(({ href, label }) => (
-          <li key={href}>
-            <a href={href} className={href === '#home' ? 'active' : ''}>{label}</a>
-          </li>
-        ))}
+        {NAV_LINKS.map(({ href, label }) => {
+          const sectionId = href.replace('#', '');
+          const isActive = activeSection === sectionId;
+          return (
+            <li key={href}>
+              <a href={href} className={isActive ? 'active' : ''}>{label}</a>
+            </li>
+          );
+        })}
       </ul>
 
       <a href="#contact" className="nav-cta">Hire Me</a>

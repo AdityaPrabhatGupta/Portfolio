@@ -126,12 +126,45 @@
 .skills-right {
   position: sticky;
   top: 110px;
-  height: 500px;
+  height: 520px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── View Toggle Pill ── */
+.skills-view-toggle {
+  display: flex;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 4px;
+  width: fit-content;
+  margin: 0 auto 16px;
+  align-self: center; /* Enforce horizontal centering in flex column */
+}
+
+.toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s;
+}
+
+.toggle-btn.active {
+  background: var(--accent);
+  color: var(--bg);
 }
 
 .skill-img-wrap {
   width: 100%;
-  height: 100%;
+  flex: 1;
   border-radius: 20px;
   background: var(--bg2);
   border: 1px solid var(--border);
@@ -220,6 +253,6 @@
   .skills-right {
     position: relative;
     top: auto;
-    height: 320px;
+    height: clamp(300px, 45vh, 380px);
   }
 }

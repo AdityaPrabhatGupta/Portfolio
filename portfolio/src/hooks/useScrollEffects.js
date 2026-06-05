@@ -30,15 +30,7 @@ export default function useScrollEffects() {
           : '0 8px 32px rgba(0,0,0,0.25)';
       }
 
-      // ── Active nav link ──
-      document.querySelectorAll('section[id]').forEach((sec) => {
-        const top = sec.offsetTop - 140;
-        if (sy >= top && sy < top + sec.offsetHeight) {
-          document.querySelectorAll('.nav-links a').forEach((a) => a.classList.remove('active'));
-          const link = document.querySelector(`.nav-links a[href="#${sec.id}"]`);
-          if (link) link.classList.add('active');
-        }
-      });
+
 
       // ── Ticker speed ──
       const ticker = document.querySelector('.ticker-track');

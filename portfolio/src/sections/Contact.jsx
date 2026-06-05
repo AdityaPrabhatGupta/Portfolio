@@ -1,5 +1,5 @@
 // Contact.jsx
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Fragment } from 'react';
 import emailjs from '@emailjs/browser';
 import { personal, contactSubjects } from '../data/content';
 import './Contact.css';
@@ -130,12 +130,13 @@ function SubjectDropdown({ value, onChange }) {
           position: absolute;
           top: calc(100% + 6px);
           left: 0; right: 0;
-          z-index: 999;
+          z-index: 9999;
           border-radius: 12px;
           border: 1px solid rgba(255,255,255,0.09);
           background: #111418;
           box-shadow: 0 16px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(188,214,49,0.06);
-          overflow: hidden;
+          max-height: 240px;
+          overflow-y: auto;
           animation: dd-slidein 0.22s cubic-bezier(0.16,1,0.3,1) both;
           transform-origin: top center;
           padding: 6px;
@@ -247,10 +248,9 @@ function SubjectDropdown({ value, onChange }) {
         {open && (
           <div className="dd-panel" role="listbox">
             {contactSubjects.map((s, i) => (
-              <>
-                {i > 0 && <div key={`div-${s.id}`} className="dd-divider" />}
+              <Fragment key={s.id}>
+                {i > 0 && <div className="dd-divider" />}
                 <div
-                  key={s.id}
                   className={`dd-option${value === s.id ? ' dd-active' : ''}`}
                   style={{ '--dd-opt-color': s.color, animationDelay: `${i * 0.04}s` }}
                   onClick={() => pick(s.id)}
@@ -263,7 +263,7 @@ function SubjectDropdown({ value, onChange }) {
                   <span className="dd-opt-label">{s.label}</span>
                   <span className="dd-opt-dot" />
                 </div>
-              </>
+              </Fragment>
             ))}
           </div>
         )}

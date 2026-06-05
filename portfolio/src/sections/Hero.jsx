@@ -3,11 +3,13 @@
 //           profile frame with hover animation.
 // Edit    : All text content in src/data/content.js
 import { personal, heroTags } from '../data/content';
+import HeroBackground3D from '../components/HeroBackground3D';
 import './Hero.css';
 
-export default function Hero() {
+export default function Hero({ onOpenResume }) {
   return (
     <section className="hero" id="home">
+      <HeroBackground3D />
 
       {/* ── LEFT COLUMN ── */}
       <div className="hero-left">
@@ -32,7 +34,9 @@ export default function Hero() {
         <div className="hero-actions">
           <a href="#projects" className="btn-fill">View Projects</a>
           <a href="#contact" className="btn-outline">Hire Me ↗</a>
-          <a href={personal.resume} download className="btn-outline">Resume ↓</a>
+          <button className="btn-outline" onClick={onOpenResume} style={{ cursor: 'pointer', background: 'transparent', textAlign: 'left' }}>
+            Resume ↓
+          </button>
         </div>
       </div>
 

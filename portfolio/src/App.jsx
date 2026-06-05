@@ -9,6 +9,7 @@
 //   1. Create it in src/sections/
 //   2. Import and drop it inside <main> below
 
+import { useState } from 'react';
 import './styles/globals.css';
 
 // ── Global hooks ──
@@ -22,11 +23,13 @@ import Cursor      from './components/Cursor';
 import Navbar      from './components/Navbar';
 import ThemeToggle from './components/ThemeToggle';
 import Footer      from './components/Footer';
+import ResumeModal from './components/ResumeModal';
 
 // ── Page sections (top → bottom) ──
 import Hero           from './sections/Hero';
 import Ticker         from './sections/Ticker';
 import Skills         from './sections/Skills';
+import Experience     from './sections/Experience';
 import Projects       from './sections/Projects';
 import About          from './sections/About';
 import Certifications from './sections/Certifications';
@@ -34,6 +37,7 @@ import Contact        from './sections/Contact';
 
 export default function App() {
   const { theme, toggle } = useTheme();
+  const [resumeOpen, setResumeOpen] = useState(false);
 
   // Global side-effects — called once on mount
   useCursor();
@@ -50,9 +54,10 @@ export default function App() {
 
       {/* Page content */}
       <main>
-        <Hero />
+        <Hero onOpenResume={() => setResumeOpen(true)} />
         <Ticker />
         <Skills />
+        <Experience />
         <Projects />
         <About />
         <Certifications />
@@ -64,6 +69,9 @@ export default function App() {
 
       {/* Fixed theme toggle (bottom-center) */}
       <ThemeToggle theme={theme} onToggle={toggle} />
+
+      {/* Printable Resume Viewer Modal */}
+      <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
     </>
   );
 }

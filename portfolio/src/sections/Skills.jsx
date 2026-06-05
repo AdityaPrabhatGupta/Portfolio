@@ -10,6 +10,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import * as THREE from 'three';
 import { skills } from '../data/content';
+import RadarChart from '../components/RadarChart';
 import './Skills.css';
 
 // ── Scene builders — each returns a tick() fn + cleanup ─────
@@ -343,7 +344,10 @@ function ThreePanel({ skillName }) {
 
     return () => {
       cancelAnimationFrame(raf);
-      // Don't dispose renderer — reuse it next time
+      if (canvas) {
+        canvas._threeRenderer = null;
+      }
+      renderer.dispose();
       scene.traverse(obj => {
         obj.geometry?.dispose();
         if (obj.material) {
@@ -363,7 +367,14 @@ function ThreePanel({ skillName }) {
     const io = new IntersectionObserver(([entry]) => {
       if (!stateRef.current) return;
       if (entry.isIntersecting) {
-        // resume — already looping
+        // resume — restart the animation loop
+        cancelAnimationFrame(stateRef.current.raf);
+        const loop = () => {
+          stateRef.current.raf = requestAnimationFrame(loop);
+          if (stateRef.current.tick) stateRef.current.tick();
+          stateRef.current.renderer.render(stateRef.current.scene, stateRef.current.camera);
+        };
+        loop();
       } else {
         cancelAnimationFrame(stateRef.current?.raf);
       }
@@ -383,6 +394,7 @@ function ThreePanel({ skillName }) {
 // ── Main Skills component ────────────────────────────────────
 export default function Skills() {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [viewMode, setViewMode] = useState('3d'); // '3d' | 'chart'
   const active = skills[activeIdx];
   const toggle = (i) => setActiveIdx(prev => prev === i ? -1 : i);
 
@@ -438,14 +450,38 @@ export default function Skills() {
           </div>
         </div>
 
-        {/* RIGHT — single shared 3D canvas */}
+        {/* RIGHT — single shared 3D canvas / radar chart */}
         <div className="skills-right">
+          
+          {/* Toggle pill */}
+          <div className="skills-view-toggle">
+            <button
+              className={`toggle-btn${viewMode === '3d' ? ' active' : ''}`}
+              onClick={() => setViewMode('3d')}
+            >
+              3D Orbit
+            </button>
+            <button
+              className={`toggle-btn${viewMode === 'chart' ? ' active' : ''}`}
+              onClick={() => setViewMode('chart')}
+            >
+              Radar Chart
+            </button>
+          </div>
+
           <div className="skill-img-wrap">
-            <ThreePanel skillName={active?.name} />
-            <div className="skill-panel-badge">
-              <span className="skill-panel-icon">{active?.icon}</span>
-              <span className="skill-panel-label">{active?.name}</span>
-            </div>
+            {viewMode === '3d' ? (
+              <ThreePanel skillName={active?.name} />
+            ) : (
+              <RadarChart activeIdx={activeIdx} onHoverActive={setActiveIdx} />
+            )}
+            
+            {active && (
+              <div className="skill-panel-badge">
+                <span className="skill-panel-icon">{active.icon}</span>
+                <span className="skill-panel-label">{active.name}</span>
+              </div>
+            )}
           </div>
         </div>
 
