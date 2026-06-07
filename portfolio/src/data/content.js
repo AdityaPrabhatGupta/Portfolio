@@ -308,6 +308,7 @@ export const certifications = [
     title: 'Artificial Intelligence & Generative AI',
     org: 'YBI Foundation',
     desc: 'Certified in AI and Generative AI technologies, including prompt engineering and model deployment.',
+    link: 'https://www.apnaclassroom.com/credential-validation?credentialId=5LTZU49HIV9KR',
   },
   {
     icon: '💻',

@@ -88,193 +88,159 @@
 }
 
 /* Scrollable Container */
-.res-document-scroll {
+.res-document-container {
   flex: 1;
-  overflow-y: auto;
-  padding: 36px 20px;
+  width: 100%;
+  height: 100%;
+  position: relative;
   background: #111;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-[data-theme="light"] .res-document-scroll {
-  background: #eaeae7;
+[data-theme="light"] .res-document-container {
+  background: #f4f4f4;
 }
 
-/* The Paper Sheet */
-.res-paper-sheet {
-  background: #ffffff;
-  color: #1a1a1a;
+/* PDF Viewer iframe styling */
+.res-pdf-viewer {
   width: 100%;
-  max-width: 760px;
-  min-height: 960px;
-  padding: 48px 52px;
-  box-shadow: 0 12px 36px rgba(0,0,0,0.45);
-  border-radius: 4px;
-  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  text-align: left;
+  height: 100%;
+  border: none;
+  background: #ffffff;
+  display: block;
 }
 
-[data-theme="light"] .res-paper-sheet {
-  box-shadow: 0 12px 36px rgba(0,0,0,0.06);
+/* Mobile Preview Card styling */
+.res-mobile-preview-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: #181818;
+  color: #ffffff;
+  min-height: 100%;
+  overflow-y: auto;
+  text-align: center;
 }
 
-/* Resume Document Styling */
-.res-doc-header {
+[data-theme="light"] .res-mobile-preview-card {
+  background: #fdfdfd;
+  color: #1a1a1a;
+}
+
+.res-mobile-icon-wrapper {
+  background: rgba(163, 230, 53, 0.1);
+  color: var(--accent);
+  padding: 20px;
+  border-radius: 50%;
   margin-bottom: 20px;
 }
 
-.res-doc-name {
-  font-size: 30px;
+.res-pdf-svg {
+  width: 48px;
+  height: 48px;
+}
+
+.res-mobile-title {
+  font-size: 22px;
   font-weight: 700;
-  color: #111111;
   margin: 0 0 6px 0;
   letter-spacing: -0.01em;
 }
 
-.res-doc-title {
+.res-mobile-subtitle {
   font-size: 14px;
-  font-weight: 600;
-  color: #555;
+  color: var(--muted);
+  margin: 0 0 12px 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin: 0 0 12px 0;
+  font-weight: 600;
 }
 
-.res-doc-contacts {
+.res-mobile-badge {
+  background: var(--border);
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  border: 1px solid var(--border);
+}
+
+.res-mobile-actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  font-size: 11.5px;
-  color: #666;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 36px;
 }
 
-.res-doc-contacts a {
-  color: inherit;
-  text-decoration: none;
-}
-.res-doc-contacts a:hover {
-  text-decoration: underline;
-  color: #111;
-}
-
-.res-doc-divider {
-  height: 1px;
-  background: #ddd;
-  margin-bottom: 24px;
-}
-
-.res-doc-section {
-  margin-bottom: 24px;
-}
-
-.res-doc-sec-title {
-  font-size: 12.5px;
+.res-mobile-btn {
+  padding: 14px 24px;
+  border-radius: 30px;
+  font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  text-align: center;
+  transition: transform 0.2s, opacity 0.2s;
+  cursor: pointer;
+}
+
+.res-mobile-btn-primary {
+  background: var(--accent);
   color: #111;
-  border-bottom: 1.5px solid #111;
-  padding-bottom: 4px;
+}
+
+.res-mobile-btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.res-mobile-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.res-mobile-contact-section {
+  width: 100%;
+  max-width: 320px;
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  text-align: left;
+}
+
+.res-mobile-contact-section h4 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.08em;
   margin: 0 0 12px 0;
 }
 
-.res-doc-text {
-  font-size: 13px;
-  line-height: 1.6;
-  color: #333;
-  margin: 0;
-}
-
-.res-doc-edu-row {
+.res-mobile-contacts {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.res-mobile-contact-link {
   font-size: 13px;
-}
-
-.res-sub-text {
-  font-size: 12px;
-  color: #666;
-  margin-top: 3px;
-}
-
-.res-doc-date {
-  font-size: 12px;
-  font-weight: 600;
-  color: #555;
-  white-space: nowrap;
-}
-
-.res-doc-date a {
-  color: inherit;
+  color: var(--text);
   text-decoration: none;
-}
-.res-doc-date a:hover {
-  text-decoration: underline;
+  transition: color 0.2s;
 }
 
-.res-doc-item {
-  margin-bottom: 16px;
-}
-.res-doc-item:last-child {
-  margin-bottom: 0;
-}
-
-.res-doc-item-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  font-size: 13px;
-  margin-bottom: 6px;
-}
-
-.res-sub-company {
-  color: #444;
-  font-weight: 600;
-}
-
-.res-doc-bullets {
-  margin: 0;
-  padding-left: 20px;
-  font-size: 12.5px;
-  line-height: 1.6;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.res-doc-project-desc {
-  font-size: 12.5px;
-  line-height: 1.55;
-  color: #333;
-  margin: 4px 0 0 0;
-}
-
-.res-doc-stack-list {
-  font-size: 12px;
-  color: #555;
-  font-weight: 500;
-}
-
-.res-doc-skills-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 13px;
-}
-
-.res-doc-skill-col {
-  line-height: 1.5;
-}
-
-.res-doc-bullets--certs {
-  gap: 6px;
-}
-
-.res-doc-cert-desc {
-  color: #555;
+.res-mobile-contact-link:hover {
+  color: var(--accent);
 }
 
 /* Animations */
@@ -289,74 +255,23 @@
 
 /* ═══════════════════════════════════════
    PRINT MEDIA RULES (CRITICAL)
-   Makes the browser print only the CV sheet,
-   hiding headers, overrides, modals, scrolls.
-═══════════════════════════════════════ */
+   Allows browser print option.
+   ═══════════════════════════════════════ */
 @media print {
   body * {
     visibility: hidden;
   }
   
-  /* Show only the resume content container */
-  #printable-resume-content,
-  #printable-resume-content * {
+  #resume-pdf-viewer,
+  #resume-pdf-viewer * {
     visibility: visible;
   }
   
-  /* Reset document positioning for print page */
-  #printable-resume-content {
+  #resume-pdf-viewer {
     position: absolute;
     left: 0;
     top: 0;
     width: 100% !important;
-    max-width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    box-shadow: none !important;
-    border: none !important;
-    background: #ffffff !important;
-    color: #000000 !important;
-  }
-
-  /* Set page details */
-  @page {
-    size: letter portrait;
-    margin: 15mm;
-  }
-  
-  /* Hide overall layout elements */
-  .res-modal-overlay,
-  .res-modal-card,
-  .res-modal-controls,
-  .res-document-scroll {
-    position: static !important;
-    background: transparent !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    box-shadow: none !important;
-    overflow: visible !important;
-    border: none !important;
-    display: block !important;
-    height: auto !important;
-  }
-}
-
-/* Responsive mobile sheet changes */
-@media (max-width: 600px) {
-  .res-paper-sheet {
-    padding: 24px;
-    font-size: 12px;
-  }
-  .res-doc-name {
-    font-size: 24px;
-  }
-  .res-doc-contacts {
-    gap: 8px;
-    flex-direction: column;
-  }
-  .res-doc-edu-row,
-  .res-doc-item-header {
-    flex-direction: column;
-    gap: 4px;
+    height: 100% !important;
   }
 }
