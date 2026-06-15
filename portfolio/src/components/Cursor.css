@@ -5,7 +5,7 @@
   width: 8px; height: 8px;
   background: var(--accent);
   border-radius: 50%;
-  position: fixed; pointer-events: none; z-index: 9999;
+  position: fixed; pointer-events: none; z-index: 999999;
   transform: translate(-50%, -50%);
   transition: background 0.3s, box-shadow 0.3s;
   box-shadow: 0 0 8px var(--accent);
@@ -15,7 +15,7 @@
   width: 32px; height: 32px;
   border: 1.5px solid rgba(200,255,0,0.5);
   border-radius: 50%;
-  position: fixed; pointer-events: none; z-index: 9998;
+  position: fixed; pointer-events: none; z-index: 999998;
   transform: translate(-50%, -50%);
   transition: width 0.25s, height 0.25s, border-color 0.3s;
 }

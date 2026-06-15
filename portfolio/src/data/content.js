@@ -13,7 +13,7 @@ export const personal = {
   linkedin: 'https://www.linkedin.com/in/aditya-prabhat-gupta-45a2102aa/',
   github: 'https://github.com/AdityaPrabhatGupta',
   resume: '/Resume.pdf',
-  profileImg: '/Aditya.jpeg',
+  profileImg: '/Aditya.png',
   heroBadge: { value: '3rd', label: 'Hackathon' },
   heroChip: 'B.Tech CSE (AI & ML)',
 };
@@ -297,8 +297,8 @@ export const about = {
   ],
   education: {
     degree: 'B.Tech CSE (AI & ML)',
-    school: 'Your University',
-    year: '2025',
+    school: 'Roorkee Institute of Technology',
+    year: '2027',
   },
 };
 
