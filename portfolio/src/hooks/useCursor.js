@@ -10,6 +10,8 @@ export default function useCursor() {
     const ring = document.getElementById('curRing');
     if (!dot || !ring) return;
 
+
+
     let mx = 0, my = 0, rx = 0, ry = 0, raf;
 
     const onMove = (e) => {

@@ -41,12 +41,6 @@ const TILT_SELECTORS = [
   '.skill-img-wrap',
 ];
 
-const ALL_SELECTORS = [...new Set([
-  ...RIPPLE_SELECTORS,
-  ...PRESS_SELECTORS,
-  ...TILT_SELECTORS,
-])].join(',');
-
 const RIPPLE_SEL = RIPPLE_SELECTORS.join(',');
 const PRESS_SEL  = PRESS_SELECTORS.join(',');
 const TILT_SEL   = TILT_SELECTORS.join(',');
@@ -108,10 +102,12 @@ function resetTilt(el) {
 
 export default function useTouchAnimations() {
   useEffect(() => {
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
     // Suppress iOS blue tap highlight
     document.documentElement.style.webkitTapHighlightColor = 'transparent';
+
+    // Track last touch event time to prevent simulated mouse events
+    let lastTouchTime = 0;
+    const updateTouchTime = () => { lastTouchTime = Date.now(); };
 
     // Track active elements
     const activePressTargets = new Set();
@@ -122,25 +118,30 @@ export default function useTouchAnimations() {
     // ═══════════════════════════════════════
 
     function handlePointerDown(target, clientX, clientY) {
-      if (!target || !target.closest) return;
-      const el = target.closest(ALL_SELECTORS);
-      if (!el) return;
+      if (!target) return;
+      let curr = target;
+      
+      // Climb up the DOM tree from target to body
+      while (curr && curr !== document && curr !== document.documentElement) {
+        if (curr.matches) {
+          // Ripple
+          if (curr.matches(RIPPLE_SEL)) {
+            createRipple(curr, clientX, clientY);
+          }
 
-      // Ripple
-      if (el.matches(RIPPLE_SEL)) {
-        createRipple(el, clientX, clientY);
-      }
+          // Press class
+          if (curr.matches(PRESS_SEL)) {
+            curr.classList.add('tap-active');
+            activePressTargets.add(curr);
+          }
 
-      // Press class
-      if (el.matches(PRESS_SEL)) {
-        el.classList.add('tap-active');
-        activePressTargets.add(el);
-      }
-
-      // Tilt
-      if (el.matches(TILT_SEL)) {
-        applyTilt(el, clientX, clientY, 5);
-        activeTiltTargets.add(el);
+          // Tilt
+          if (curr.matches(TILT_SEL)) {
+            applyTilt(curr, clientX, clientY, 5);
+            activeTiltTargets.add(curr);
+          }
+        }
+        curr = curr.parentNode;
       }
     }
 
@@ -163,42 +164,54 @@ export default function useTouchAnimations() {
     // ═══════════════════════════════════════
 
     const onTouchStart = (e) => {
+      updateTouchTime();
       const t = e.touches[0];
       if (t) handlePointerDown(e.target, t.clientX, t.clientY);
     };
 
     const onTouchMove = (e) => {
+      updateTouchTime();
       const t = e.touches[0];
       if (t) handlePointerMove(t.clientX, t.clientY);
     };
 
-    const onTouchEnd = () => handlePointerUp();
+    const onTouchEnd = () => {
+      updateTouchTime();
+      handlePointerUp();
+    };
 
     // ═══════════════════════════════════════
     //  MOUSE HANDLERS (desktop)
     // ═══════════════════════════════════════
 
     const onMouseDown = (e) => {
+      if (Date.now() - lastTouchTime < 1000) return; // ignore touch-emulated event
       handlePointerDown(e.target, e.clientX, e.clientY);
     };
 
     const onMouseMove = (e) => {
+      if (Date.now() - lastTouchTime < 1000) return;
       // Only update tilt while mouse is pressed (dragging)
       if (activeTiltTargets.size > 0) {
         handlePointerMove(e.clientX, e.clientY);
       }
     };
 
-    const onMouseUp = () => handlePointerUp();
+    const onMouseUp = () => {
+      if (Date.now() - lastTouchTime < 1000) return;
+      handlePointerUp();
+    };
 
     // Also do a lighter hover-tilt for desktop (no click needed)
     const hoverTiltMap = new WeakMap();
 
     const onMouseEnterDelegate = (e) => {
+      if (Date.now() - lastTouchTime < 1000) return;
       const el = e.target.closest ? e.target.closest(TILT_SEL) : null;
       if (!el || hoverTiltMap.has(el)) return;
 
       const moveHandler = (ev) => {
+        if (Date.now() - lastTouchTime < 1000) return;
         applyTilt(el, ev.clientX, ev.clientY, 4);
       };
       const leaveHandler = () => {
@@ -217,14 +230,13 @@ export default function useTouchAnimations() {
     //  ATTACH LISTENERS
     // ═══════════════════════════════════════
 
-    if (isTouch) {
-      document.addEventListener('touchstart', onTouchStart, { passive: true });
-      document.addEventListener('touchmove', onTouchMove, { passive: true });
-      document.addEventListener('touchend', onTouchEnd, { passive: true });
-      document.addEventListener('touchcancel', onTouchEnd, { passive: true });
-    }
+    // Touch events
+    document.addEventListener('touchstart', onTouchStart, { passive: true });
+    document.addEventListener('touchmove', onTouchMove, { passive: true });
+    document.addEventListener('touchend', onTouchEnd, { passive: true });
+    document.addEventListener('touchcancel', onTouchEnd, { passive: true });
 
-    // Always add mouse listeners (some devices support both)
+    // Mouse events
     document.addEventListener('mousedown', onMouseDown);
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);

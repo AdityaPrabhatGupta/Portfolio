@@ -49,9 +49,15 @@ body {
   color: var(--text);
   overflow-x: clip;
   max-width: 100%;
-  cursor: none;
   transition: background 0.45s, color 0.45s;
 }
+
+@media (pointer: fine) and (min-width: 901px) {
+  body, a, button, [role="button"], input, textarea, select {
+    cursor: none;
+  }
+}
+
 
 /* Guard elements from causing horizontal overflow without breaking position: sticky */
 #root, main {
