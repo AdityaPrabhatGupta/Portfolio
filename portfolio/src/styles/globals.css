@@ -182,7 +182,8 @@ section {
 }
 
 /* ═══════════════════════════════════════════════════════
-   TOUCH ANIMATIONS  (mobile only)
+   INTERACTION ANIMATIONS  (desktop + mobile)
+   Driven by .tap-active class toggled via useTouchAnimations.js
    ═══════════════════════════════════════════════════════ */
 
 /* ── Ripple element injected by useTouchAnimations.js ── */
@@ -190,8 +191,8 @@ section {
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(200, 255, 0, 0.30) 0%,
-    rgba(200, 255, 0, 0.08) 40%,
+    rgba(200, 255, 0, 0.35) 0%,
+    rgba(200, 255, 0, 0.10) 40%,
     transparent 70%
   );
   animation: touchRipple 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -200,152 +201,158 @@ section {
 [data-theme="light"] .touch-ripple {
   background: radial-gradient(
     circle,
-    rgba(124, 184, 0, 0.22) 0%,
-    rgba(124, 184, 0, 0.06) 40%,
+    rgba(124, 184, 0, 0.25) 0%,
+    rgba(124, 184, 0, 0.08) 40%,
     transparent 70%
   );
 }
 
 @keyframes touchRipple {
   0%   { transform: scale(0); opacity: 1; }
-  70%  { opacity: 0.6; }
+  70%  { opacity: 0.7; }
   100% { transform: scale(1); opacity: 0; }
 }
 
-/* ── Press-down :active feedback (touch devices only) ── */
+/* ── Show default cursor on touch devices ── */
 @media (hover: none) and (pointer: coarse) {
-
-  /* Show default cursor on touch devices */
   body { cursor: auto; }
+}
 
-  /* ── Buttons: subtle press + accent glow ── */
-  .btn-fill:active {
-    transform: scale(0.94);
-    box-shadow: 0 0 18px rgba(200, 255, 0, 0.3);
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
-  }
+/* ── Buttons: press-down + accent glow ── */
+.btn-fill.tap-active {
+  transform: scale(0.94) !important;
+  box-shadow: 0 0 18px rgba(200, 255, 0, 0.3);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
 
-  .btn-outline:active {
-    transform: scale(0.94);
-    border-color: var(--accent);
-    box-shadow: 0 0 14px var(--glow);
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
-  }
+.btn-outline.tap-active {
+  transform: scale(0.94) !important;
+  border-color: var(--accent);
+  box-shadow: 0 0 14px var(--glow);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
 
-  .btn-submit:active {
-    transform: scale(0.95);
-    box-shadow: 0 0 20px rgba(200, 255, 0, 0.35);
-    transition: transform 0.1s ease;
-  }
+.btn-submit.tap-active {
+  transform: scale(0.95) !important;
+  box-shadow: 0 0 20px rgba(200, 255, 0, 0.35);
+  transition: transform 0.1s ease;
+}
 
-  /* ── Cards: press-down + border glow ── */
-  .proj-card:active {
-    border-color: rgba(200, 255, 0, 0.25) !important;
-    box-shadow: 0 4px 24px rgba(200, 255, 0, 0.08);
-  }
+/* ── Cards: border glow on press ── */
+.proj-card.tap-active {
+  border-color: rgba(200, 255, 0, 0.3) !important;
+  box-shadow: 0 4px 28px rgba(200, 255, 0, 0.1) !important;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
 
-  .cert-card:active {
-    border-color: rgba(200, 255, 0, 0.3);
-    box-shadow: 0 4px 24px rgba(200, 255, 0, 0.1);
-  }
+.cert-card.tap-active {
+  border-color: rgba(200, 255, 0, 0.35) !important;
+  box-shadow: 0 4px 28px rgba(200, 255, 0, 0.12);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
 
-  .exp-card:active {
-    border-color: rgba(200, 255, 0, 0.25);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
-  }
+.exp-card.tap-active {
+  border-color: rgba(200, 255, 0, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
 
-  /* ── Stat boxes: accent flash ── */
-  .stat-box:active {
-    border-color: rgba(200, 255, 0, 0.35);
-    box-shadow: 0 0 16px var(--glow);
-    transition: border-color 0.1s, box-shadow 0.1s;
-  }
-  .stat-box:active .stat-num {
-    text-shadow: 0 0 12px rgba(200, 255, 0, 0.4);
-  }
+/* ── Stat boxes: accent flash ── */
+.stat-box.tap-active {
+  border-color: rgba(200, 255, 0, 0.4) !important;
+  box-shadow: 0 0 18px var(--glow);
+  transition: border-color 0.1s, box-shadow 0.1s;
+}
+.stat-box.tap-active .stat-num {
+  text-shadow: 0 0 14px rgba(200, 255, 0, 0.5);
+}
 
-  /* ── Education card ── */
-  .edu-card:active {
-    border-color: rgba(200, 255, 0, 0.3);
-    box-shadow: 0 0 14px var(--glow);
-  }
+/* ── Education card ── */
+.edu-card.tap-active {
+  border-color: rgba(200, 255, 0, 0.35);
+  box-shadow: 0 0 16px var(--glow);
+}
 
-  /* ── Accordion items: highlight on tap ── */
-  .acc-header:active .acc-num,
-  .acc-header:active .acc-name {
-    color: var(--accent);
-    text-shadow: 0 0 8px var(--glow);
-  }
+/* ── Accordion: highlight on press ── */
+.acc-header.tap-active .acc-num,
+.acc-header.tap-active .acc-name {
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--glow);
+}
 
-  /* ── Social buttons & link pills ── */
-  .social-btn:active,
-  .social-icon:active {
-    border-color: var(--accent);
-    color: var(--accent);
-    box-shadow: 0 0 12px var(--glow);
-    transform: scale(0.94);
-    transition: all 0.1s ease;
-  }
+/* ── Social buttons & icons ── */
+.social-btn.tap-active,
+.social-icon.tap-active {
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+  box-shadow: 0 0 14px var(--glow);
+  transform: scale(0.94);
+  transition: all 0.1s ease;
+}
 
-  /* ── Hero tags: glow pulse ── */
-  .hero-tag:active {
-    border-color: rgba(200, 255, 0, 0.4);
-    color: var(--accent);
-    box-shadow: 0 0 10px var(--glow);
-    transform: scale(0.95);
-    transition: all 0.1s ease;
-  }
+/* ── Hero tags ── */
+.hero-tag.tap-active {
+  border-color: rgba(200, 255, 0, 0.4) !important;
+  color: var(--accent) !important;
+  box-shadow: 0 0 12px var(--glow);
+  transform: scale(0.95);
+  transition: all 0.1s ease;
+}
 
-  /* ── Project action buttons ── */
-  .proj-btn:active {
-    transform: scale(0.93);
-    box-shadow: 0 0 12px var(--glow);
-    transition: transform 0.1s ease;
-  }
+/* ── Skill tags ── */
+.acc-tag.tap-active {
+  border-color: rgba(200, 255, 0, 0.4) !important;
+  color: var(--accent);
+  transition: all 0.1s ease;
+}
 
-  /* ── Skill view toggle ── */
-  .toggle-btn:active {
-    transform: scale(0.93);
-    transition: transform 0.1s ease;
-  }
+/* ── Project action buttons ── */
+.proj-btn.tap-active {
+  transform: scale(0.93) !important;
+  box-shadow: 0 0 14px var(--glow);
+  transition: transform 0.1s ease;
+}
 
-  /* ── Theme toggle ── */
-  .theme-toggle:active {
-    transform: scale(0.93);
-    box-shadow: 0 0 18px var(--glow);
-    transition: transform 0.12s ease;
-  }
+/* ── Skill view toggle ── */
+.toggle-btn.tap-active {
+  transform: scale(0.93);
+  transition: transform 0.1s ease;
+}
 
-  /* ── Navbar avatar: pulse on tap ── */
-  .nav-avatar:active {
-    box-shadow: 0 0 0 3px var(--glow), 0 0 16px var(--glow);
-    border-color: var(--accent);
-    transition: all 0.1s ease;
-  }
+/* ── Theme toggle ── */
+.theme-toggle.tap-active {
+  transform: scale(0.93);
+  box-shadow: 0 0 20px var(--glow) !important;
+  transition: transform 0.12s ease;
+}
 
-  /* ── Contact form inputs: glow on focus (touch) ── */
-  .f-input:active, .f-textarea:active, .f-select:active {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px var(--glow);
-  }
+/* ── Navbar avatar: pulse ── */
+.nav-avatar.tap-active {
+  box-shadow: 0 0 0 3px var(--glow), 0 0 18px var(--glow);
+  border-color: var(--accent) !important;
+  transition: all 0.1s ease;
+}
 
-  /* ── Skill panel badge ── */
-  .skill-panel-badge:active {
-    border-color: var(--accent);
-    box-shadow: 0 0 12px var(--glow);
-    transform: translateX(-50%) scale(0.95);
-  }
+/* ── Skill panel badge ── */
+.skill-panel-badge.tap-active {
+  border-color: var(--accent);
+  box-shadow: 0 0 14px var(--glow);
+}
 
-  /* ── Footer social icons ── */
-  .footer .social-icon:active {
-    transform: scale(0.9);
-    box-shadow: 0 0 14px var(--glow);
-  }
+/* ── Cert link ── */
+.cert-link.tap-active {
+  opacity: 0.8;
+  transform: translateX(4px);
+}
 
-  /* ── Mobile resume buttons ── */
-  .res-mobile-btn:active {
-    transform: scale(0.95);
-    box-shadow: 0 0 16px var(--glow);
-    transition: all 0.1s ease;
-  }
+/* ── Resume modal buttons ── */
+.res-mobile-btn.tap-active {
+  transform: scale(0.95);
+  box-shadow: 0 0 16px var(--glow);
+  transition: all 0.1s ease;
+}
+.cs-btn.tap-active {
+  transform: scale(0.95);
+  box-shadow: 0 0 14px var(--glow);
+  transition: all 0.1s ease;
 }
