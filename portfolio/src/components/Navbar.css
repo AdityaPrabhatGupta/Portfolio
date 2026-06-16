@@ -141,6 +141,7 @@
 @media (max-width: 900px) {
   .navbar { padding: 8px 12px; top: 12px; }
   .nav-links { display: none; }
+  .nav-cta { display: none; }
   .navbar--collapsed .nav-status { max-width: 140px; }
 }
 

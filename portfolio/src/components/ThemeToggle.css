@@ -37,3 +37,36 @@
   transform: translateX(20px);
   background: #141414;
 }
+
+/* ── Mobile: shrink & reposition to bottom-right ── */
+@media (max-width: 900px) {
+  .theme-wrap {
+    bottom: 20px;
+    left: auto;
+    right: 20px;
+    transform: none;
+  }
+
+  .theme-toggle {
+    padding: 8px 14px;
+    gap: 8px;
+    font-size: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  }
+
+  .toggle-track {
+    width: 36px;
+    height: 20px;
+  }
+
+  .toggle-thumb {
+    width: 14px;
+    height: 14px;
+    top: 2px;
+    left: 2px;
+  }
+
+  [data-theme="dark"] .toggle-thumb {
+    transform: translateX(16px);
+  }
+}

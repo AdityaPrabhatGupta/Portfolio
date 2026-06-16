@@ -13,10 +13,11 @@ import { useState } from 'react';
 import './styles/globals.css';
 
 // ── Global hooks ──
-import useCursor       from './hooks/useCursor';
-import useTheme        from './hooks/useTheme';
-import useReveal       from './hooks/useReveal';
-import useScrollEffects from './hooks/useScrollEffects';
+import useCursor          from './hooks/useCursor';
+import useTheme           from './hooks/useTheme';
+import useReveal          from './hooks/useReveal';
+import useScrollEffects   from './hooks/useScrollEffects';
+import useTouchAnimations from './hooks/useTouchAnimations';
 
 // ── Layout components ──
 import Cursor      from './components/Cursor';
@@ -43,6 +44,7 @@ export default function App() {
   useCursor();
   useReveal();
   useScrollEffects();
+  useTouchAnimations();
 
   return (
     <>

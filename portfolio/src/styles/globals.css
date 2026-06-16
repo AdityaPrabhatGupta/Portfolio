@@ -77,8 +77,13 @@ body::before {
 
 *, *::before, *::after {
   box-sizing: border-box;
-  position: relative;
-  z-index: 1;
+  margin: 0;
+}
+
+/* Prevent text overflow on all screen sizes */
+body {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 /* Scrollbar */
@@ -174,4 +179,173 @@ section {
 /* ─── RESPONSIVE BASE ─── */
 @media (max-width: 900px) {
   section { padding: 80px 24px; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   TOUCH ANIMATIONS  (mobile only)
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Ripple element injected by useTouchAnimations.js ── */
+.touch-ripple {
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(200, 255, 0, 0.30) 0%,
+    rgba(200, 255, 0, 0.08) 40%,
+    transparent 70%
+  );
+  animation: touchRipple 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+[data-theme="light"] .touch-ripple {
+  background: radial-gradient(
+    circle,
+    rgba(124, 184, 0, 0.22) 0%,
+    rgba(124, 184, 0, 0.06) 40%,
+    transparent 70%
+  );
+}
+
+@keyframes touchRipple {
+  0%   { transform: scale(0); opacity: 1; }
+  70%  { opacity: 0.6; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+/* ── Press-down :active feedback (touch devices only) ── */
+@media (hover: none) and (pointer: coarse) {
+
+  /* Show default cursor on touch devices */
+  body { cursor: auto; }
+
+  /* ── Buttons: subtle press + accent glow ── */
+  .btn-fill:active {
+    transform: scale(0.94);
+    box-shadow: 0 0 18px rgba(200, 255, 0, 0.3);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+
+  .btn-outline:active {
+    transform: scale(0.94);
+    border-color: var(--accent);
+    box-shadow: 0 0 14px var(--glow);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+
+  .btn-submit:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 20px rgba(200, 255, 0, 0.35);
+    transition: transform 0.1s ease;
+  }
+
+  /* ── Cards: press-down + border glow ── */
+  .proj-card:active {
+    border-color: rgba(200, 255, 0, 0.25) !important;
+    box-shadow: 0 4px 24px rgba(200, 255, 0, 0.08);
+  }
+
+  .cert-card:active {
+    border-color: rgba(200, 255, 0, 0.3);
+    box-shadow: 0 4px 24px rgba(200, 255, 0, 0.1);
+  }
+
+  .exp-card:active {
+    border-color: rgba(200, 255, 0, 0.25);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+  }
+
+  /* ── Stat boxes: accent flash ── */
+  .stat-box:active {
+    border-color: rgba(200, 255, 0, 0.35);
+    box-shadow: 0 0 16px var(--glow);
+    transition: border-color 0.1s, box-shadow 0.1s;
+  }
+  .stat-box:active .stat-num {
+    text-shadow: 0 0 12px rgba(200, 255, 0, 0.4);
+  }
+
+  /* ── Education card ── */
+  .edu-card:active {
+    border-color: rgba(200, 255, 0, 0.3);
+    box-shadow: 0 0 14px var(--glow);
+  }
+
+  /* ── Accordion items: highlight on tap ── */
+  .acc-header:active .acc-num,
+  .acc-header:active .acc-name {
+    color: var(--accent);
+    text-shadow: 0 0 8px var(--glow);
+  }
+
+  /* ── Social buttons & link pills ── */
+  .social-btn:active,
+  .social-icon:active {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 12px var(--glow);
+    transform: scale(0.94);
+    transition: all 0.1s ease;
+  }
+
+  /* ── Hero tags: glow pulse ── */
+  .hero-tag:active {
+    border-color: rgba(200, 255, 0, 0.4);
+    color: var(--accent);
+    box-shadow: 0 0 10px var(--glow);
+    transform: scale(0.95);
+    transition: all 0.1s ease;
+  }
+
+  /* ── Project action buttons ── */
+  .proj-btn:active {
+    transform: scale(0.93);
+    box-shadow: 0 0 12px var(--glow);
+    transition: transform 0.1s ease;
+  }
+
+  /* ── Skill view toggle ── */
+  .toggle-btn:active {
+    transform: scale(0.93);
+    transition: transform 0.1s ease;
+  }
+
+  /* ── Theme toggle ── */
+  .theme-toggle:active {
+    transform: scale(0.93);
+    box-shadow: 0 0 18px var(--glow);
+    transition: transform 0.12s ease;
+  }
+
+  /* ── Navbar avatar: pulse on tap ── */
+  .nav-avatar:active {
+    box-shadow: 0 0 0 3px var(--glow), 0 0 16px var(--glow);
+    border-color: var(--accent);
+    transition: all 0.1s ease;
+  }
+
+  /* ── Contact form inputs: glow on focus (touch) ── */
+  .f-input:active, .f-textarea:active, .f-select:active {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--glow);
+  }
+
+  /* ── Skill panel badge ── */
+  .skill-panel-badge:active {
+    border-color: var(--accent);
+    box-shadow: 0 0 12px var(--glow);
+    transform: translateX(-50%) scale(0.95);
+  }
+
+  /* ── Footer social icons ── */
+  .footer .social-icon:active {
+    transform: scale(0.9);
+    box-shadow: 0 0 14px var(--glow);
+  }
+
+  /* ── Mobile resume buttons ── */
+  .res-mobile-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 16px var(--glow);
+    transition: all 0.1s ease;
+  }
 }
